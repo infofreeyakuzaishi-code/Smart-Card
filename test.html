@@ -105,3 +105,61 @@
 
 </body>
 </html>
+
+<style>
+    /* お守りボタン専用の追加スタイル */
+    .omamori-row {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* 2つ並べる設定 */
+        gap: 12px;
+        margin: 10px auto 25px;
+        max-width: 480px;
+        padding: 0 15px;
+        box-sizing: border-box;
+    }
+
+    .omamori-item {
+        aspect-ratio: 1 / 1;
+        background-color: #ffffff; /* ダークモード対応が必要な場合は var(--card-bg) に変更 */
+        border-radius: 18px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        text-decoration: none;
+        color: #2d3436; /* ダークモード対応が必要な場合は var(--text-main) に変更 */
+        box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+        transition: transform 0.2s ease;
+        padding: 10px;
+        border: 1px solid rgba(0,0,0,0.03);
+    }
+
+    .omamori-item:active { transform: scale(0.95); }
+    .omamori-icon-img { font-size: 2rem; margin-bottom: 10px; }
+    .omamori-text { font-size: 0.75rem; font-weight: bold; line-height: 1.4; }
+</style>
+
+<div class="omamori-row">
+    <a href="javascript:void(0);" onclick="sendToLine('rx')" class="omamori-item">
+        <span class="omamori-icon-img">📄</span>
+        <span class="omamori-text">提携薬局<br>(処方箋送信)</span>
+    </a>
+
+    <a href="javascript:void(0);" onclick="sendToLine('consult')" class="omamori-item">
+        <span class="omamori-icon-img">💊</span>
+        <span class="omamori-text">薬・サプリの<br>相談をする</span>
+    </a>
+</div>
+
+<script>
+    /* LINE送信機能：IDを適宜書き換えてください */
+    function sendToLine(type) {
+        const lineId = "@534uoyka"; // 送信先の公式LINE ID
+        let msg = "";
+        if(type === 'rx') msg = "受け取った処方箋の画像を写真を撮って送ってください";
+        if(type === 'consult') msg = "相談内容をお気軽に入力してください";
+        
+        window.location.href = `https://line.me/R/oaMessage/${lineId}/?${encodeURIComponent(msg)}`;
+    }
+</script>
